@@ -52,21 +52,7 @@ namespace webShop.BussinessLogic
 
             if (productData != null)
             {
-                  ProductCart cart = new ProductCart()
-                  {
-                        ProductId = productData.Id,
-                        Name = productData.Name,
-                        Price = productData.Price,
-                        Ammount = productData.Ammount,
-                        Category = productData.Category,
-                        Currency = productData.Currency,
-                        Description = productData.Description,
-                        ImageName_1 = productData.ImageName_1,
-                        ImageName_2 = productData.ImageName_2,
-                        ImageName_3 = productData.ImageName_3,
-                  };
-
-            
+                ProductCart cart = new ProductCartAdapter(productData);
                 _db.Cart.Add(cart);
                 _db.SaveChanges();
             }
