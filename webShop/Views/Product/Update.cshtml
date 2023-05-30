@@ -1,0 +1,98 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<section class="bg0 p-t-104 p-b-116">
+	<div class="container">
+		<h1 class="cl2 txt-center m-b-30">Add Product</h1>
+		<div class="flex-w flex-tr justify-content-center">								
+			<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+				<form method="post" enctype="multipart/form-data">
+					<div class="m-b-20 how-pos4-parent">
+						<label asp-for="Name"></label>
+						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Name">
+					</div>
+
+					<div class="m-b-20 how-pos4-parent">
+						<input class="d-lg-none" asp-for="Category">
+					</div>
+
+					<div class="m-b-20 how-pos4-parent">
+						<label asp-for="Price"></label>
+						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Price">
+					</div>
+
+					<div class="m-b-20 how-pos4-parent">
+						<label asp-for="Ammount"></label>
+						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Ammount">
+					</div>
+
+					<div class="m-b-20 how-pos4-parent">
+						<label asp-for="Image_1"></label>
+						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Image_1">
+					</div>
+
+					<div class="m-b-20 how-pos4-parent">
+						<label asp-for="Image_1"></label>
+						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Image_2">
+					</div>
+
+					<div class="m-b-20 how-pos4-parent">
+						<label asp-for="Image_1"></label>
+						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Image_3">
+					</div>
+
+					<div class="bor8 m-b-30">
+						<textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" asp-for="Description" placeholder="Product description"></textarea>
+					</div>
+
+					<button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
+						Submit
+					</button>	
+					
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!--===============================================================================================-->
+<script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/bootstrap/js/popper.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/select2/select2.min.js"></script>
+<script>
+	$(".js-select2").each(function () {
+		$(this).select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $(this).next('.dropDownSelect2')
+		});
+	})
+</script>
+<!--===============================================================================================-->
+<script src="~/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script>
+	$('.js-pscroll').each(function () {
+		$(this).css('position', 'relative');
+		$(this).css('overflow', 'hidden');
+		var ps = new PerfectScrollbar(this, {
+			wheelSpeed: 1,
+			scrollingThreshold: 1000,
+			wheelPropagation: false,
+		});
+
+		$(window).on('resize', function () {
+			ps.update();
+		})
+	});
+</script>
+<!--===============================================================================================-->
+<script src="~/js/main.js"></script>
