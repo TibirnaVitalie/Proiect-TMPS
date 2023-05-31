@@ -18,7 +18,7 @@ namespace webShop.Controllers
         {
             _logger = logger;
 
-            BusinessLogic bl = new BusinessLogic();
+            BusinessLogic bl = BusinessLogic.GetInstance();
             _product = bl.GetProductBL(db);
         }
 

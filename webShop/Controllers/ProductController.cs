@@ -19,7 +19,7 @@ namespace webShop.Controllers
           {
                _webHost = webHost;
 
-               BusinessLogic bl = new BusinessLogic();
+               BusinessLogic bl = BusinessLogic.GetInstance();
                _product = bl.GetProductBL(db);
           }
 
