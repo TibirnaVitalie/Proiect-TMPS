@@ -91,26 +91,6 @@ namespace webShop.BussinessLogic
             else throw new ArgumentNullException(nameof(product) + "should not be null!");
         }
 
-        public IEnumerable<ProductData> SortByName()
-        {
-            List<ProductData> sortedProducts = _db.Products.ToList(); 
-
-            return sortedProducts.OrderBy(x => x.Name[0]).ToList();
-        }
-
-        public IEnumerable<ProductData> SortPriceLowHigh()
-        {
-            List<ProductData> sortedProducts = _db.Products.ToList();
-
-            return sortedProducts.OrderBy(x => x.Price).ToList();
-        }
-        public IEnumerable<ProductData> SortPriceHighLow()
-        {
-            List<ProductData> sortedProducts = _db.Products.ToList();
-
-            return sortedProducts.OrderByDescending(x => x.Price).ToList();
-        }
-
         public IEnumerable<ProductData> FilterByPrice(int? price)
         {
             List<ProductData> products = _db.Products.ToList();

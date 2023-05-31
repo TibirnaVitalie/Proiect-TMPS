@@ -17,9 +17,6 @@ namespace webShop.BussinessLogic.Interfaces
         public void RemoveProduct(int? id);
         public void AddToCart(int? id);
         public void ClearCart();
-        public IEnumerable<ProductData> SortByName();
-        public IEnumerable<ProductData> SortPriceLowHigh();
-        public IEnumerable<ProductData> SortPriceHighLow();
         public IEnumerable<ProductData> FilterByPrice(int? price);
 
 

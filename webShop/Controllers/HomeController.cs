@@ -24,14 +24,7 @@ namespace webShop.Controllers
 
         public IActionResult Index()
         {
-            ProductViewModel viewModel = new ProductViewModel()
-            {
-                ProductData = new ProductData(),
-                Products = _product.GetProducts(),
-                CartProducts = _product.GetCartContent()
-            };
-
-            return View(viewModel);
+            return View();
         }
 
         public IActionResult About()
@@ -68,21 +61,6 @@ namespace webShop.Controllers
             }
 
             return View("Index", products);
-        }
-
-        public IActionResult SortName()
-        {
-            return View("Index", _product.SortByName());
-        }
-
-        public IActionResult SortLowHigh()
-        {
-            return View("Index", _product.SortPriceLowHigh());
-        }
-
-        public IActionResult SortHighLow()
-        {
-            return View("Index", _product.SortPriceHighLow());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
