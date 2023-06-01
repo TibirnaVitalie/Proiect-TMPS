@@ -7,8 +7,8 @@
 			<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item @Model.Category">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img src=@imgPath alt="IMG-PRODUCT" asp-append-version="true">
+						<div class="block2-pic hov-img0" style="height: 500px">
+							<img src=@imgPath alt="IMG-PRODUCT" style="height: 100%; object-fit: cover;" asp-append-version="true">
 
 							<a asp-controller="Product" asp-action="ProductDetail" asp-route-id="@Model.Id" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 								Quick View
@@ -29,7 +29,10 @@
 							@if (ViewData["Title"] == "Edit")
 							{
 								<div class="block2-txt-child2 flex-r p-t-3">
-									<a asp-controller="Product" asp-action="Update" asp-route-id="@Model.Id" class="text-dark">
+									<a asp-controller="Product" asp-action="Duplication" asp-route-id="@Model.Id" class="text-dark">
+										<i class="bi bi-plus-lg"></i>
+									</a>
+									<a asp-controller="Product" asp-action="Update" asp-route-id="@Model.Id" class="text-dark m-l-5">
 										<i class="bi bi-pencil-square"></i>
 									</a>
 									<a asp-controller="Product" asp-action="Remove" asp-route-id="@Model.Id" class="text-danger m-l-5">

@@ -5,6 +5,7 @@ using webShop.BussinessLogic.DBModel;
 using webShop.BussinessLogic.Interfaces;
 using webShop.BussinessLogic.Strategies;
 using webShop.Domain.Entities.Product;
+using webShop.Domain.Interfaces;
 using webShop.Models;
 
 namespace webShop.Controllers
@@ -127,6 +128,22 @@ namespace webShop.Controllers
                }
 
                return View(product);
+          }
+
+          [Authorize]
+          public IActionResult Duplication(int? id)
+          {
+               if (id != null)
+               {
+                    ProductData productData = _product.GetProduct(id) as ProductData;
+
+                    ProductData ClonedProductData = productData.Clone();
+
+                    _product.AddProduct(ClonedProductData);
+               }
+
+               return RedirectToAction("Index");
+
           }
 
           public IActionResult Remove(int? id)
