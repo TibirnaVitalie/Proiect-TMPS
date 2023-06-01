@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using webShop.Domain.Entities.Product;
+using webShop.BussinessLogic.Iterator.Product;
 
 namespace webShop.BussinessLogic.Interfaces
 {
      public interface ISortStrategy
      {
-          public IEnumerable<ProductData> Sort(IEnumerable<ProductData> data);
+          public IEnumerable<ProductData> Sort(ProductCollection data);
      }
 }

@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using webShop.Domain.Entities.Product;
 using webShop.BussinessLogic.Interfaces;
+using webShop.BussinessLogic.Iterator.Product;
 
 namespace webShop.BussinessLogic.Strategies
 {
      public class PriceHighLowSortStrategy : ISortStrategy
      {
-          public IEnumerable<ProductData> Sort(IEnumerable<ProductData> data)
+          public IEnumerable<ProductData> Sort(ProductCollection data)
           {
-               return data.OrderByDescending(x => x.Price).ToList();
+               return data.PriceHighLowSort();
           }
      }
 }

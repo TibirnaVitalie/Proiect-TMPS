@@ -60,6 +60,21 @@ namespace webShop.BussinessLogic
                else throw new ArgumentNullException(nameof(productData) + "should not be null!");
           }
 
+          public void RemoveFromCart(int? id)
+          {
+               var products = _db.Cart.ToList();
+
+               foreach (var obj in products)
+               {
+                    if(obj.ProductId == id)
+                    {
+                         _db.Cart.Remove(obj);
+                    }
+               }
+
+               _db.SaveChanges();
+          }
+
           public void RemoveProduct(int? id)
           {
                if (id == null)
@@ -76,6 +91,8 @@ namespace webShop.BussinessLogic
 
                _db.Products.Remove(productData);
                _db.SaveChanges();
+
+               RemoveFromCart(id);
           }
 
           public void UpdateProduct(ProductData? productData)

@@ -4,8 +4,9 @@ using webShop.BussinessLogic;
 using webShop.BussinessLogic.DBModel;
 using webShop.BussinessLogic.Interfaces;
 using webShop.BussinessLogic.Strategies;
+using webShop.BussinessLogic.Iterator.Product;
+using webShop.BussinessLogic.Iterator.Cart;
 using webShop.Domain.Entities.Product;
-using webShop.Domain.Interfaces;
 using webShop.Models;
 
 namespace webShop.Controllers
@@ -26,11 +27,13 @@ namespace webShop.Controllers
 
           public IActionResult Index()
           {
+               ProductCollection _sortedCollection = new ProductCollection(_product.GetProducts() as List<ProductData>);
+
                ProductViewModel viewModel = new ProductViewModel()
                {
                     ProductData = new ProductData(),
-                    Products = _sorter.Sort(_product.GetProducts()),
-                    CartProducts = _product.GetCartContent()
+                    Products = new ProductCollection(_sorter.Sort(_sortedCollection) as List<ProductData>),
+                    CartProducts = new CartProductCollection(_product.GetCartContent() as List<ProductCart>)
                };
 
                return View(viewModel);
@@ -47,8 +50,8 @@ namespace webShop.Controllers
                ProductViewModel viewModel = new ProductViewModel()
                {
                     ProductData = new ProductData(),
-                    Products = new List<ProductData>(),
-                    CartProducts = _product.GetCartContent()
+                    Products = new ProductCollection(new List<ProductData>()),
+                    CartProducts = new CartProductCollection(_product.GetCartContent() as List<ProductCart>)
                };
 
                return View(viewModel);
@@ -68,10 +71,13 @@ namespace webShop.Controllers
                     return NotFound();
                }
 
+               ProductCollection _sortedCollection = new ProductCollection(_product.GetProducts() as List<ProductData>);
+
                ProductViewModel model = new ProductViewModel
                {
                     ProductData = _product.GetProduct(id) as ProductData,
-                    Products = _product.GetProducts()
+                    Products = new ProductCollection(_sorter.Sort(_sortedCollection) as List<ProductData>),
+                    CartProducts = new CartProductCollection(new List<ProductCart>())
                };
 
                return View(model);
@@ -155,7 +161,11 @@ namespace webShop.Controllers
           [Authorize]
           public IActionResult Edit()
           {
-               return View(_product.GetProducts());
+               ProductCollection _sortedCollection = new ProductCollection(_product.GetProducts() as List<ProductData>);
+
+               ProductCollection viewModel = new ProductCollection(_sorter.Sort(_sortedCollection) as List<ProductData>);
+
+               return View(viewModel);
           }
 
           [Authorize]
@@ -292,40 +302,44 @@ namespace webShop.Controllers
           {
                SetSortingStrategy(new NameSortStrategy());
 
+               ProductCollection _sortedCollection = new ProductCollection(_product.GetProducts() as List<ProductData>);
+
                ProductViewModel viewModel = new ProductViewModel()
                {
                     ProductData = new ProductData(),
-                    Products = _sorter.Sort(_product.GetProducts()),
-                    CartProducts = _product.GetCartContent()
+                    Products = new ProductCollection(_sorter.Sort(_sortedCollection) as List<ProductData>),
+                    CartProducts = new CartProductCollection(_product.GetCartContent() as List<ProductCart>)
                };
 
-               return View("Index", viewModel);
+               return View("Index" ,viewModel);
           }
           public IActionResult SortLowHigh()
           {
                SetSortingStrategy(new PriceLowHighSortStrategy());
 
+               ProductCollection _sortedCollection = new ProductCollection(_product.GetProducts() as List<ProductData>);
+
                ProductViewModel viewModel = new ProductViewModel()
                {
                     ProductData = new ProductData(),
-                    Products = _sorter.Sort(_product.GetProducts()),
-                    CartProducts = _product.GetCartContent()
+                    Products = new ProductCollection(_sorter.Sort(_sortedCollection) as List<ProductData>),
+                    CartProducts = new CartProductCollection(_product.GetCartContent() as List<ProductCart>)
                };
 
-               return View("Index", viewModel);
+               return View("Index" ,viewModel);
           }
           public IActionResult SortHighLow()
           {
-               SetSortingStrategy(new PriceHighLowSortStrategy()); 
-               
+               ProductCollection _sortedCollection = new ProductCollection(_product.GetProducts() as List<ProductData>);
+
                ProductViewModel viewModel = new ProductViewModel()
                {
                     ProductData = new ProductData(),
-                    Products = _sorter.Sort(_product.GetProducts()),
-                    CartProducts = _product.GetCartContent()
+                    Products = new ProductCollection(_sorter.Sort(_sortedCollection) as List<ProductData>),
+                    CartProducts = new CartProductCollection(_product.GetCartContent() as List<ProductCart>)
                };
 
-               return View("Index", viewModel);
+               return View("Index" ,viewModel);
           }
 
           public IActionResult FilterPrice(int? price)
