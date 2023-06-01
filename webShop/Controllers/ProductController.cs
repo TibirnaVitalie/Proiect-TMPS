@@ -98,7 +98,7 @@ namespace webShop.Controllers
                          Name = product.Name,
                          Price = product.Price,
                          Category = product.Category,
-                         Currency = "$",
+                         Currency = product.Currency,
                          Ammount = product.Ammount,
                          Description = product.Description,
                          ImageName_1 = product.Image_1.FileName,
