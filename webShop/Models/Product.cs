@@ -19,7 +19,7 @@ namespace webShop.Models
         public int Price { get; set; }
 
         [Required, Display(Name = "Product Currency")]
-        public char Currency { get; set; }
+        public string Currency { get; set; }
 
         [Required, Display(Name = "Product Ammount")]
         public int Ammount { get; set; }

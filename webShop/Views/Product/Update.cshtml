@@ -6,7 +6,7 @@
 
 <section class="bg0 p-t-104 p-b-116">
 	<div class="container">
-		<h1 class="cl2 txt-center m-b-30">Add Product</h1>
+		<h1 class="cl2 txt-center m-b-30">Edit Product</h1>
 		<div class="flex-w flex-tr justify-content-center">								
 			<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
 				<form method="post" enctype="multipart/form-data">
@@ -16,12 +16,18 @@
 					</div>
 
 					<div class="m-b-20 how-pos4-parent">
-						<input class="d-lg-none" asp-for="Category">
+						<label asp-for="Category"></label>
+						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Category">
 					</div>
 
 					<div class="m-b-20 how-pos4-parent">
 						<label asp-for="Price"></label>
 						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Price">
+					</div>
+
+					<div class="m-b-20 how-pos4-parent">
+						<label asp-for="Currency"></label>
+						<input class="bor8 stext-111 cl2 plh3 size-116 p-l-62 p-r-30" asp-for="Currency">
 					</div>
 
 					<div class="m-b-20 how-pos4-parent">

@@ -18,7 +18,7 @@ namespace webShop.Domain.Entities.Product
         public int Price { get; set; }
 
         [Required]
-        public char Currency { get; set; }
+        public string Currency { get; set; }
 
         [Required]
         public int Ammount { get; set; }

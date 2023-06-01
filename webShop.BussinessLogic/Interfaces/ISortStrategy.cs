@@ -9,6 +9,6 @@ namespace webShop.BussinessLogic.Interfaces
 {
      public interface ISortStrategy
      {
-          public IEnumerable<ProductData> Sort(IEnumerable<ProductData> sorter);
+          public IEnumerable<ProductData> Sort(IEnumerable<ProductData> data);
      }
 }

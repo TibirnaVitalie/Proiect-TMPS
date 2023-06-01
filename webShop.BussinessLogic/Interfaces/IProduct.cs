@@ -13,7 +13,7 @@ namespace webShop.BussinessLogic.Interfaces
         public IEnumerable<ProductCart> GetCartContent();
         public object GetProduct(int? id);
         public void AddProduct(object product);
-        public void UpdateProduct(object product);
+        public void UpdateProduct(ProductData? productData);
         public void RemoveProduct(int? id);
         public void AddToCart(int? id);
         public void ClearCart();

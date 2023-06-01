@@ -98,7 +98,7 @@ namespace webShop.Controllers
                          Name = product.Name,
                          Price = product.Price,
                          Category = product.Category,
-                         Currency = '$',
+                         Currency = "$",
                          Ammount = product.Ammount,
                          Description = product.Description,
                          ImageName_1 = product.Image_1.FileName,
@@ -176,7 +176,16 @@ namespace webShop.Controllers
                     string uploadPath = String.Empty;
                     string deletePath = String.Empty;
 
-                    ProductData? productData = _product.GetProduct(product.Id) as ProductData;
+                    ProductData? productData = new ProductData()
+                    {
+                         Id = product.Id,
+                         Name = product.Name,
+                         Price = product.Price,
+                         Ammount = product.Ammount,
+                         Category = product.Category,
+                         Description = product.Description,
+                         Currency = product.Currency,
+                    };
 
                     if (product.Image_1 != null)
                     {
