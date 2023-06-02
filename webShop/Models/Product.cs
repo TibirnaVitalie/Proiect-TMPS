@@ -18,9 +18,6 @@ namespace webShop.Models
         [Required, Display(Name = "Product Price")]
         public int Price { get; set; }
 
-        [Required, Display(Name = "Product Currency")]
-        public string Currency { get; set; }
-
         [Required, Display(Name = "Product Ammount")]
         public int Ammount { get; set; }
 

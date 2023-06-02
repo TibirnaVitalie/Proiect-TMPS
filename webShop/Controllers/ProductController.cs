@@ -6,8 +6,11 @@ using webShop.BussinessLogic.Interfaces;
 using webShop.BussinessLogic.Strategies;
 using webShop.BussinessLogic.Iterator.Product;
 using webShop.BussinessLogic.Iterator.Cart;
+using webShop.BussinessLogic.Bridge;
 using webShop.Domain.Entities.Product;
+using webShop.Domain.Enums;
 using webShop.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace webShop.Controllers
 {
@@ -47,21 +50,61 @@ namespace webShop.Controllers
 
           public IActionResult ShopingCart()
           {
-               ProductViewModel viewModel = new ProductViewModel()
+               CheckoutViewModel viewModel = new CheckoutViewModel()
                {
                     ProductData = new ProductData(),
                     Products = new ProductCollection(new List<ProductData>()),
-                    CartProducts = new CartProductCollection(_product.GetCartContent() as List<ProductCart>)
+                    CartProducts = new CartProductCollection(_product.GetCartContent() as List<ProductCart>),
+                    Payments = new List<SelectListItem>
+                    {
+                         new SelectListItem {Value = PaymentMethod.Cash.ToString(),       Text="Chash on delivery"},
+                         new SelectListItem {Value = PaymentMethod.ApplePay.ToString(),   Text="Apple Pay"        },
+                         new SelectListItem {Value = PaymentMethod.PayPal.ToString(),     Text="PayPal"           },
+                         new SelectListItem {Value = PaymentMethod.CreditCard.ToString(), Text="Credit card"      }
+                    }
                };
 
                return View(viewModel);
           }
 
-          public IActionResult Buy()
+          public IActionResult Checkout(CheckoutViewModel model)
           {
+               CartProductCollection _cartProducts = new CartProductCollection(_product.GetCartContent() as List<ProductCart>);
+
+               IPaymentMethod _paymentMethod;
+
+               switch (model.PaymentMethod)
+               {
+                    case PaymentMethod.ApplePay:
+                         _paymentMethod = new ApplePayPayment();
+                         break;
+
+                    case PaymentMethod.PayPal:
+                         _paymentMethod = new PayPalPayment();
+                         break;
+
+                    case PaymentMethod.CreditCard:
+                         _paymentMethod = new CreditCardPayment();
+                         break;
+
+                     default:
+                         _paymentMethod = new CashPayment();
+                         break;
+               }
+
+               Order _order = new ProductOrder(_paymentMethod, _cartProducts);
+
+               string _paymentStatus = _order.PaymentMethod.ProcessPayment();
+               string _orderDetails = _order.DisplayOrderDetails(_paymentStatus);
+
+               PaymentViewModel viewModel = new PaymentViewModel()
+               {
+                    Message = _orderDetails,
+               };
+
                _product.ClearCart();
 
-               return RedirectToAction("Index");
+               return View(viewModel);
           }
 
           public IActionResult ProductDetail(int? id)
@@ -105,7 +148,6 @@ namespace webShop.Controllers
                          Name = product.Name,
                          Price = product.Price,
                          Category = product.Category,
-                         Currency = product.Currency,
                          Ammount = product.Ammount,
                          Description = product.Description,
                          ImageName_1 = product.Image_1.FileName,
@@ -184,7 +226,6 @@ namespace webShop.Controllers
                     Ammount = productData.Ammount,
                     Category = productData.Category,
                     Description = productData.Description,
-                    Currency = productData.Currency
                };
 
                return View("Update", product);
@@ -211,7 +252,6 @@ namespace webShop.Controllers
                          Ammount = product.Ammount,
                          Category = product.Category,
                          Description = product.Description,
-                         Currency = product.Currency,
                     };
 
                     if (product.Image_1 != null)
@@ -313,6 +353,7 @@ namespace webShop.Controllers
 
                return View("Index" ,viewModel);
           }
+
           public IActionResult SortLowHigh()
           {
                SetSortingStrategy(new PriceLowHighSortStrategy());
@@ -328,6 +369,7 @@ namespace webShop.Controllers
 
                return View("Index" ,viewModel);
           }
+
           public IActionResult SortHighLow()
           {
                ProductCollection _sortedCollection = new ProductCollection(_product.GetProducts() as List<ProductData>);

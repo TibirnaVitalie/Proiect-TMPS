@@ -18,7 +18,6 @@ namespace webShop.Domain.Entities.Product
                Name = _productData.Name;
                Category = _productData.Category;
                Price = _productData.Price;
-               Currency = _productData.Currency;
                Ammount = _productData.Ammount;
                Description = _productData.Description;
                ImageName_1 = _productData.ImageName_1;

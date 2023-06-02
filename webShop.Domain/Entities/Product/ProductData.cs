@@ -19,9 +19,6 @@ namespace webShop.Domain.Entities.Product
           public int Price { get; set; }
 
           [Required]
-          public string Currency { get; set; }
-
-          [Required]
           public int Ammount { get; set; }
 
           [Required]
@@ -39,7 +36,6 @@ namespace webShop.Domain.Entities.Product
                this.Name = other.Name;
                this.Category = other.Category;
                this.Price = other.Price;
-               this.Currency = other.Currency;
                this.Ammount = other.Ammount;
                this.Description = other.Description;
                this.ImageName_1 = other.ImageName_1;
