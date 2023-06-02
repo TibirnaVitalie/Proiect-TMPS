@@ -372,6 +372,8 @@ namespace webShop.Controllers
 
           public IActionResult SortHighLow()
           {
+               SetSortingStrategy(new PriceHighLowSortStrategy());
+
                ProductCollection _sortedCollection = new ProductCollection(_product.GetProducts() as List<ProductData>);
 
                ProductViewModel viewModel = new ProductViewModel()
