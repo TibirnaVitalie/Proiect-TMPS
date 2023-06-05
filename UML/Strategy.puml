@@ -1,0 +1,53 @@
+@startuml
+!theme plain
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+interface ISortStrategy {
+    + Sort(sorter: IEnumerable<ProductData>): IEnumerable<ProductData>
+}
+
+class NameSortStrategy {
+    + Sort(data: IEnumerable<ProductData>): IEnumerable<ProductData>
+}
+
+class PriceLowHighSortStrategy {
+    + Sort(data: IEnumerable<ProductData>): IEnumerable<ProductData>
+}
+
+class PriceHighLowSortStrategy {
+    + Sort(data: IEnumerable<ProductData>): IEnumerable<ProductData>
+}
+
+class ProductData {
+    + Id: int
+    + Name: string
+    + Category: string
+    + Price: int
+    + Description: string
+    + ImageName_1: string
+    + ImageName_2: string
+    + ImageName_3: string
+    + ProductData()
+    + ProductData(other: ProductData)
+}
+
+class ProductController {
+    - _sorter: ISortStrategy
+    + SetSortingStrategy(sorter: ISortStrategy): void
+    + SortName(): IActionResult
+    + SortLowHigh(): IActionResult
+    + SortHighLow(): IActionResult
+}
+
+ISortStrategy <|.. NameSortStrategy
+ISortStrategy <|.. PriceLowHighSortStrategy
+ISortStrategy <|.. PriceHighLowSortStrategy
+ProductData --> ISortStrategy
+ProductController --> ISortStrategy
+ProductController --> NameSortStrategy
+ProductController --> PriceLowHighSortStrategy
+ProductController --> PriceHighLowSortStrategy
+
+@enduml

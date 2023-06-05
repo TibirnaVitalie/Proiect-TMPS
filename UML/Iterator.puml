@@ -1,0 +1,82 @@
+@startuml
+!theme plain
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+class CartProductCollection {
+    - _products: List<ProductCart>
+    --
+    + CartProductCollection(products: List<ProductCart>)
+    + GetEnumerator(): IEnumerator<ProductCart>
+}
+
+class CartProductIterator {
+    - _products: List<ProductCart>
+    - _currentIndex: int
+    --
+    + CartProductIterator(products: List<ProductCart>)
+    + Current: ProductCart
+    + MoveNext(): bool
+    + Reset(): void
+    + Dispose(): void
+}
+
+class ProductCollection {
+    - _products: List<ProductData>
+    --
+    + ProductCollection(products: List<ProductData>)
+    + GetEnumerator(): IEnumerator<ProductData>
+    + NameSort(): IEnumerable<ProductData>
+    + PriceLowHighSort(): IEnumerable<ProductData>
+    + PriceHighLowSort(): IEnumerable<ProductData>
+}
+
+class ProductIterator {
+    - _products: List<ProductData>
+    - _currentIndex: int
+    --
+    + ProductIterator(products: List<ProductData>)
+    + Current: ProductData
+    + MoveNext(): bool
+    + Reset(): void
+    + Dispose(): void
+}
+
+class ProductController {
+    - _product: IProduct
+    - _webHost: IWebHostEnvironment
+    - _sorter: ISortStrategy
+    --
+    + ProductController(db: ProductDbContext, webHost: IWebHostEnvironment)
+    + Index(): IActionResult
+}
+
+interface IEnumerable<T> {
+    + GetEnumerator(): IEnumerator<T>
+}
+
+interface IEnumerator<T> {
+    + Current: T
+    + MoveNext(): bool
+    + Reset(): void
+    + Dispose(): void
+}
+
+CartProductCollection --|> IEnumerable
+CartProductCollection --> CartProductIterator
+
+CartProductIterator --|> IEnumerator
+
+ProductCollection --|> IEnumerable
+ProductCollection --> ProductIterator
+
+ProductIterator --|> IEnumerator
+
+ProductController --> IProduct: _product
+ProductController --> ISortStrategy: _sorter
+ProductController --> ProductCollection: _sortedCollection
+ProductController --> ProductViewModel: creates
+ProductController --> CartProductCollection: creates
+
+@enduml

@@ -1,0 +1,81 @@
+@startuml
+!theme plain
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+interface IPaymentMethod {
+    + ProcessPayment(): string
+}
+
+enum PaymentMethod {
+    Cash
+    ApplePay
+    PayPal
+    CreditCard
+}
+
+class CheckoutViewModel {
+    + PaymentMethod: PaymentMethod
+    + Payments: List<SelectListItem>
+}
+
+class CartProductCollection {
+    ...
+}
+
+class ProductOrder {
+    - PaymentMethod: IPaymentMethod
+    - CartProducts: CartProductCollection
+    --
+    + ProductOrder(paymentMethod: IPaymentMethod, cartProducts: CartProductCollection)
+    + DisplayOrderDetails(paymentStatus: string): string
+}
+
+class PayPalPayment {
+    + ProcessPayment(): string
+}
+
+abstract class Order {
+    - PaymentMethod: IPaymentMethod
+    - CartProducts: CartProductCollection
+    --
+    + Order(paymentMethod: IPaymentMethod, cartProducts: CartProductCollection)
+    + DisplayOrderDetails(paymentStatus: string): string
+}
+
+class CreditCardPayment {
+    + ProcessPayment(): string
+}
+
+class CashPayment {
+    + ProcessPayment(): string
+}
+
+class ApplePayPayment {
+    + ProcessPayment(): string
+}
+
+class ProductController {
+    - _product: IProduct
+    --
+    + Checkout(model: CheckoutViewModel): IActionResult
+}
+
+IPaymentMethod <|-- PayPalPayment
+IPaymentMethod <|-- CreditCardPayment
+IPaymentMethod <|-- CashPayment
+IPaymentMethod <|-- ApplePayPayment
+
+ProductOrder -- IPaymentMethod: uses
+ProductOrder o-- CartProductCollection: contains
+
+Order <|-- ProductOrder
+
+ProductController --> IProduct: _product
+ProductController --> CheckoutViewModel: parameter
+ProductController --> ProductOrder: creates
+ProductController --> PaymentViewModel: creates
+ProductController --> BusinessLogic: creates
+
+@enduml

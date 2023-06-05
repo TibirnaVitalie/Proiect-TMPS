@@ -1,0 +1,43 @@
+@startuml
+!theme plain
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+class ProductData {
+    + Id
+    + Name
+    + Category
+    + Price
+    + Ammount
+    + Description
+    + ImageName_1
+    + ImageName_2
+    + ImageName_3
+}
+
+class ProductCart {
+    + ProductId
+    + Name
+    + Category
+    + Price
+    + Ammount
+    + Description
+    + ImageName_1
+    + ImageName_2
+    + ImageName_3
+}
+
+class ProductCartAdapter {
+    - _productData: ProductData
+    + ProductCartAdapter(productData: ProductData)
+}
+
+class Client {
+}
+
+ProductData --> ProductCartAdapter
+ProductCartAdapter --|> ProductCart
+Client --> ProductCartAdapter
+
+@enduml

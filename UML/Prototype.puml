@@ -1,0 +1,43 @@
+@startuml
+!theme plain
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+class ProductData {
+    - Id: int
+    - Name: string
+    - Category: string
+    - Price: int
+    - Currency: string
+    - Ammount: int
+    - Description: string
+    - ImageName_1: string
+    - ImageName_2: string
+    - ImageName_3: string
+    --
+    + ProductData()
+    + ProductData(other: ProductData)
+    + Clone(): ProductData
+}
+
+interface IProductPrototype {
+    + Clone(): ProductData
+}
+
+class ProductController {
+    - _product: IProduct
+    - _webHost: IWebHostEnvironment
+    - _sorter: ISortStrategy
+    --
+    + ProductController(db: ProductDbContext, webHost: IWebHostEnvironment)
+    + Duplication(id: int?): IActionResult
+}
+
+ProductData ..|> IProductPrototype
+ProductController --> IProduct: _product
+ProductController --> ISortStrategy: _sorter
+ProductController --> BusinessLogic: creates
+ProductController --> IProductPrototype
+
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+!theme plain
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+class BusinessLogic {
+    - instance: BusinessLogic
+    --
+    + GetInstance(): BusinessLogic
+    + GetProductBL(db: ProductDbContext): IProduct
+}
+
+class HomeController {
+    - _logger: ILogger<HomeController>
+    - _product: IProduct
+    --
+    + HomeController(logger: ILogger<HomeController>, db: ProductDbContext)
+}
+
+class ProductController {
+    - _product: IProduct
+    - _webHost: IWebHostEnvironment
+    - _sorter: ISortStrategy
+    --
+    + ProductController(db: ProductDbContext, webHost: IWebHostEnvironment)
+}
+
+interface IProduct {
+    ...
+}
+
+class ProductBL {
+    + ProductBL(db: ProductDbContext)
+    --
+    # DbContext
+}
+
+ProductController --> BusinessLogic: creates
+HomeController --> BusinessLogic: creates
+BusinessLogic --> IProduct: GetProductBL(db)
+BusinessLogic --> ProductBL
+BusinessLogic --> BusinessLogic: GetInstance()
+
+@enduml
