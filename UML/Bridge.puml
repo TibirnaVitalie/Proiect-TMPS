@@ -62,20 +62,17 @@ class ProductController {
     + Checkout(model: CheckoutViewModel): IActionResult
 }
 
-IPaymentMethod <|-- PayPalPayment
-IPaymentMethod <|-- CreditCardPayment
-IPaymentMethod <|-- CashPayment
-IPaymentMethod <|-- ApplePayPayment
+IPaymentMethod <|.. PayPalPayment
+IPaymentMethod <|.. CreditCardPayment
+IPaymentMethod <|.. CashPayment
+IPaymentMethod <|.. ApplePayPayment
 
-ProductOrder -- IPaymentMethod: uses
 ProductOrder o-- CartProductCollection: contains
 
+Order o--> IPaymentMethod
 Order <|-- ProductOrder
 
-ProductController --> IProduct: _product
 ProductController --> CheckoutViewModel: parameter
 ProductController --> ProductOrder: creates
-ProductController --> PaymentViewModel: creates
-ProductController --> BusinessLogic: creates
 
 @enduml

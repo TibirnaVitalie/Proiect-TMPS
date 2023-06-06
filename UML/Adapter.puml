@@ -36,7 +36,7 @@ class ProductCartAdapter {
 class Client {
 }
 
-ProductData --> ProductCartAdapter
+ProductCartAdapter --> ProductData
 ProductCartAdapter --|> ProductCart
 Client --> ProductCartAdapter
 

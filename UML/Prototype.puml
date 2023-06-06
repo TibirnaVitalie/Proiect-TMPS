@@ -35,9 +35,6 @@ class ProductController {
 }
 
 ProductData ..|> IProductPrototype
-ProductController --> IProduct: _product
-ProductController --> ISortStrategy: _sorter
-ProductController --> BusinessLogic: creates
 ProductController --> IProductPrototype
 
 @enduml

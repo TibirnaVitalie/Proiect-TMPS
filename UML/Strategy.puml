@@ -44,10 +44,12 @@ class ProductController {
 ISortStrategy <|.. NameSortStrategy
 ISortStrategy <|.. PriceLowHighSortStrategy
 ISortStrategy <|.. PriceHighLowSortStrategy
-ProductData --> ISortStrategy
-ProductController --> ISortStrategy
-ProductController --> NameSortStrategy
-ProductController --> PriceLowHighSortStrategy
-ProductController --> PriceHighLowSortStrategy
+ProductData <-- ISortStrategy
+ProductController o--> ISortStrategy
+
+Client --> ProductController
+Client ..> NameSortStrategy
+Client ..> PriceLowHighSortStrategy
+Client ..> PriceHighLowSortStrategy
 
 @enduml

@@ -73,10 +73,7 @@ ProductCollection --> ProductIterator
 
 ProductIterator --|> IEnumerator
 
-ProductController --> IProduct: _product
-ProductController --> ISortStrategy: _sorter
 ProductController --> ProductCollection: _sortedCollection
-ProductController --> ProductViewModel: creates
 ProductController --> CartProductCollection: creates
 
 @enduml
